@@ -31,6 +31,67 @@
 		//embedded_svc.settings.fallbackRouting = []; //An array of button IDs, user IDs, or userId_buttonId
 		//embedded_svc.settings.offlineSupportMinimizedText = '...'; //(Defaults to Contact Us)
 
+// Wex Coupon Code capture code from Einstein Bot
+		
+//Retrieve all cookies
+var x = document.cookie;
+var cookieValue='';
+var foundInsession =false;
+    console.log(x); //log all cookies
+    
+	//Split cookies and process each one	 
+	x.split(';').forEach(function(el) {
+     		var y = el.split('=');
+		if(foundInsession) return;
+		     console.log(y);
+		     console.log(y[1]);
+		
+//Extract values for specific cookies
+// First the code checks for cookieValue in 'wex_cc_session' and if empty it then checks in 'wex_cc_persistent'.
+   
+	 	if( y[0].trim()==='wex_cc_session' ){
+		       	if(y[1]){
+		     		 cookieValue = y[1].split('|')[0];
+				foundInsession = true;
+				return;
+	  			
+		       	}
+      
+      		}
+		if(y[0].trim()==='wex_cc_persistent') {
+ 		if(y[1]){
+     		 	cookieValue = y[1].split('|')[0];
+      		 }
+		}
+ 	  	
+    		console.log(cookieValue);//log extracted cookieValue
+	});
+ 	
+   
+//  Array to include pre-chat fields and map it to the associated LiveChatTranscript custom field.
+		embedded_svc.settings.extraPrechatFormDetails = [{
+  		"label": "Coupon Code",
+  		"value": cookieValue,
+  		"displayToAgent": true,
+  		"transcriptFields" : ["Coupon_Code__c"]
+		},{
+		  "label":"First Name",  
+		  "transcriptFields": ["FirstName__c"]
+		},{
+		  "label":"Last Name", 
+		  "transcriptFields": ["LastName__c"]
+		},{
+		  "label":"Email", 
+		  "transcriptFields": ["Email__c"]
+		},{
+		  "label":"Company", 
+		  "transcriptFields": ["Company__c"]
+		},{
+		  "label":"Phone", 
+		  "transcriptFields": ["Phone__c"]
+		}];
+		
+
 		embedded_svc.settings.enabledFeatures = ['LiveAgent'];
 		embedded_svc.settings.entryFeature = 'LiveAgent';
 
