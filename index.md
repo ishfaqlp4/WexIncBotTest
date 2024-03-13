@@ -1,12 +1,10 @@
-<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
-
 <style type='text/css'>
 	.embeddedServiceHelpButton .helpButton .uiButton {
-		background-color: #0058A3;
+		background-color: #005290;
 		font-family: "Arial", sans-serif;
-		}
+	}
 	.embeddedServiceHelpButton .helpButton .uiButton:focus {
-		outline: 1px solid #0058A3;
+		outline: 1px solid #005290;
 	}
 </style>
 
@@ -30,16 +28,16 @@
 		//embedded_svc.settings.prepopulatedPrechatFields = {}; //Sets the auto-population of pre-chat form fields
 		//embedded_svc.settings.fallbackRouting = []; //An array of button IDs, user IDs, or userId_buttonId
 		//embedded_svc.settings.offlineSupportMinimizedText = '...'; //(Defaults to Contact Us)
-
-// Wex Coupon Code capture code from Einstein Bot
-		
+//Code to facilitate retrieving associated cookies from the user browser and storing it as Coupon Code in LiveChatTranscript		
 //Retrieve all cookies
+
 var x = document.cookie;
 var cookieValue='';
 var foundInsession =false;
     console.log(x); //log all cookies
     
 	//Split cookies and process each one	 
+	
 	x.split(';').forEach(function(el) {
      		var y = el.split('=');
 		if(foundInsession) return;
@@ -68,7 +66,8 @@ var foundInsession =false;
 	});
  	
    
-//  Array to include pre-chat fields and map it to the associated LiveChatTranscript custom field.
+//  Array to include pre-chat fields and map it to the associated LiveChatTranscript fields.
+		
 		embedded_svc.settings.extraPrechatFormDetails = [{
   		"label": "Coupon Code",
   		"value": cookieValue,
@@ -90,23 +89,21 @@ var foundInsession =false;
 		  "label":"Phone", 
 		  "transcriptFields": ["Phone__c"]
 		}];
-		
-
 		embedded_svc.settings.enabledFeatures = ['LiveAgent'];
 		embedded_svc.settings.entryFeature = 'LiveAgent';
 
 		embedded_svc.init(
 			'https://wexinc--stagefull.sandbox.my.salesforce.com',
-			'https://wexinc--stagefull.sandbox.my.site.com/AUEGFuel',
+			'https://wexinc--stagefull.sandbox.my.salesforce-sites.com/chat',
 			gslbBaseURL,
-			'00DU70000003ZkP',
+			'00DU8000000Tosf',
 			'Wex_Inc_Bot_Team',
 			{
 				baseLiveAgentContentURL: 'https://c.la2s-core2.sfdc-lywfpd.salesforceliveagent.com/content',
-				deploymentId: '5720g00000000Oy',
-				buttonId: '573U70000000waH',
+				deploymentId: '572U80000008ofZ',
+				buttonId: '573U80000002GlR',
 				baseLiveAgentURL: 'https://d.la2s-core2.sfdc-lywfpd.salesforceliveagent.com/chat',
-				eswLiveAgentDevName: 'Wex_Inc_Bot_Team',
+				eswLiveAgentDevName: 'EmbeddedServiceLiveAgent_Parent04IU8000000RnMPMA0_18e3837c6b5',
 				isOfflineSupportEnabled: false
 			}
 		);
